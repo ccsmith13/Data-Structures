@@ -170,53 +170,36 @@ class BSTNode:
     # Stretch Goals -------------------------
     # Note: Research may be required
     def in_order_dft(self):
-        pass
+        
+        if self.left: 
+            self.left.in_order_dft()
+        
+        print(self.value)
+
+        if self.right: 
+            self.right.in_order_dft()
+
     # Print Pre-order recursive DFT
     def pre_order_dft(self):
-        #base case
-        if self is None: 
-            return 
 
-        stack = []
-        stack.append(self)
+        print(self.value)
+        
+        if self.left: 
+            self.left.pre_order_dft()
 
-        while len(stack) > 0:
-            current = stack.pop()
-
-            print(current.value)
-
-            if current.right:
-                stack.append(current.right)
-
-            if current.left:
-                stack.append(current.left)
+        if self.right: 
+            self.right.pre_order_dft()
 
     # Print Post-order recursive DFT
     def post_order_dft(self):
-        #base case
-        if self is None: 
-            return 
+        
+        if self.left: 
+            self.left.pre_order_dft()
 
-        stack1 = []
-        stack2 = []
-
-        stack1.append(self)
-
-        while stack1:
-            #take item from s1 and move it to s2
-            current = stack1.pop()
-            stack2.append(current)
-
-            # put children of removed node to s1
-            if current.left:
-                stack1.append(current.left)
-            if current.right: 
-                stack1.append(current.right)
-
-            #print all elements of the second stack
-        while stack2: 
-            current = stack2.pop()
-            print(current.value)
+        if self.right: 
+            self.right.pre_order_dft()
+        
+        print(self.value)
 
 """
 This code is necessary for testing the `print` methods
