@@ -123,7 +123,7 @@ class BSTNode:
                 self.left.in_order_print()
 
             print(self.value)
-            
+
             if self.right:
                 self.right.in_order_print()
 
@@ -153,6 +153,9 @@ class BSTNode:
         stack = []
         stack.append(self)
         
+        if self is None: 
+            return 
+
         while len(stack) > 0:
             current = stack.pop()
 
@@ -170,11 +173,50 @@ class BSTNode:
         pass
     # Print Pre-order recursive DFT
     def pre_order_dft(self):
-        pass
+        #base case
+        if self is None: 
+            return 
+
+        stack = []
+        stack.append(self)
+
+        while len(stack) > 0:
+            current = stack.pop()
+
+            print(current.value)
+
+            if current.right:
+                stack.append(current.right)
+
+            if current.left:
+                stack.append(current.left)
 
     # Print Post-order recursive DFT
     def post_order_dft(self):
-        pass
+        #base case
+        if self is None: 
+            return 
+
+        stack1 = []
+        stack2 = []
+
+        stack1.append(self)
+
+        while stack1:
+            #take item from s1 and move it to s2
+            current = stack1.pop()
+            stack2.append(current)
+
+            # put children of removed node to s1
+            if current.left:
+                stack1.append(current.left)
+            if current.right: 
+                stack1.append(current.right)
+
+            #print all elements of the second stack
+        while stack2: 
+            current = stack2.pop()
+            print(current.value)
 
 """
 This code is necessary for testing the `print` methods
