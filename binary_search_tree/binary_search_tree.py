@@ -63,24 +63,106 @@ class BSTNode:
     def for_each(self, fn):
         # one side then the other 
         # fn(value)
-        pass
+        fn(self.value)
+        # base case: no children 
+        if self.left is None and self.right is None: 
+            return
+         # recursive case: 1 or more children 
+         # go left, call fn for each node
+        if self.left:
+            self.left.for_each(fn)
+        # go right, call fn for each node
+        if self.right: 
+            self.right.for_each(fn)
 
+    def iterative_depth_first_for_each(self, fn):
+        # DFT: LIFO
+        # we'll use a stack 
+        stack = []
+        stack.append(self)
+        
+        while len(stack) > 0:
+            #pop the current node from the stack
+            current = stack.pop()
+
+            #add the current node's right child first 
+            if current.right:
+                stack.append(current.right)
+
+            #add the current node's left child 
+            if current.left:
+                stack.append(current.left)
+
+            #call the anonymous function 
+            fn(current.value)
+    
+    def iterative_breadth_first_for_each(self, fn):
+        # BFT: FIFO
+        # we'll use a queue 
+        from collections import deque
+        queue = deque()
+        queue.append(self)
+
+        while len(queue) > 0:
+            current = queue.popleft()
+
+            if current.left: 
+                queue.append(current.left)
+
+            if current.right: 
+                queue.append(current.right)
+            
+            fn(current.value)
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
-        pass
+        if self.value:
+            if self.left: 
+                self.left.in_order_print()
+
+            print(self.value)
+            
+            if self.right:
+                self.right.in_order_print()
+
+            
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
-        pass
+        from collections import deque
+        queue = deque()
+        queue.append(self)
+
+        while len(queue) > 0:
+            current = queue.popleft()
+
+            if current.left: 
+                queue.append(current.left)
+
+            if current.right: 
+                queue.append(current.right)
+            
+            print(current.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
-        pass
+        stack = []
+        stack.append(self)
+        
+        while len(stack) > 0:
+            current = stack.pop()
+
+            if current.right:
+                stack.append(current.right)
+
+            if current.left:
+                stack.append(current.left)
+
+            print(current.value)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
